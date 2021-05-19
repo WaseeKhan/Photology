@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title> Photology | Blogs </title>{% endblock title %}
+
+{% block content %}
+<body>
+{% include 'main/header.html' %}
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option spad" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="bo-links">
+                        <a href="{% url 'home-view' %}"><i class="fa fa-home"></i> Home</a>
+                        <span>Blog</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    {% for blog in blogs %}
+                    <div class="blog-item">{{blog.count}}
+
+                        <div class="bi-pic">
+
+                            <a href="#"><img src="{{blog.blogImg.url}}" alt="blogImage" style="width:300px; height:200px;"></a>
+                        </div>
+                        <div class="bi-text">
+                            <div class="label">{{blog.category}}</div>
+
+                            <div class="label" style="background:brown;">#tag</div>
+                            <h5><a href="{% url 'blog-read-view' blog.id %}">{{blog.title}}</a></h5>
+
+                            <ul>
+                                <li>by <span>Waseem</span></li>
+                                <li>{{blog.created}}</li>
+                                <li>{{blog.updated}}</li>
+                                <li>20 <i class="fa fa-comment"></i> </li>
+                            </ul>
+
+                            <p>{{blog.description}}</p>
+
+                        </div>
+
+                    </div>
+    {% endfor %}
+                    <div class="blog-pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">Next</a>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="blog-sidebar">
+                        <div class="bs-item s-mb">
+                            <h5>Feature posts</h5>
+                            <div class="bi-feature-post">
+                               <a href="#" class="fp-item">
+                                    <div class="fp-pic">
+                                        {% for top in top3 %}
+                                        <img src="{{top.blogImg.url}}" alt="" style="width:70px;"><br><br><br>
+                                        {% endfor %}
+                                    </div>
+                                    {% for top in top3 %}
+                                    <div class="fp-text">
+                                        <h6>{{top.title}}</h6>
+                                        <span>{{top.updated}}</span><br><br>
+                                    </div>
+                                    {% endfor %}
+                                </a>
+                            </div>
+                        </div>
+                         <!-- Categories widget-->
+                    <div class="card my-4">
+                        <h4 class="card-header">Categories</h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        {% for blog in blogs %}
+                                        <li><a href="#!">{{blog.category}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="bs-item">
+                            <h5>Instagram</h5>
+                            <div class="bi-insta">
+                                <img src="img/blog/insta-1.jpg" alt="">
+                                <img src="img/blog/insta-2.jpg" alt="">
+                                <img src="img/blog/insta-3.jpg" alt="">
+                                <img src="img/blog/insta-4.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+
+{% include 'main/footer.html' %}
+{% endblock content %}
