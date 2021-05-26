@@ -21,12 +21,9 @@ def ShowCatView(request, cid):
     cats = Category.objects.all()
     category = Category.objects.get(pk=cid)
     img = Photo.objects.filter(cat=category)
-    count = Photo.objects.filter(count=cats).count()
-
     data = {
         'img': img,
         'cats': cats,
-        'count': count,
         'category': category,
     }
     return render(request, 'picApp/home.html', data)
@@ -35,12 +32,25 @@ def ShowCatView(request, cid):
 def BlogView(request):
     blogs = Blog.objects.order_by('-created')
     top3 = Blog.objects.order_by('-created')[:3]
-    mycat = Category.objects.all()
+    mycats = Blog.objects.all()
+
     context = {
         'blogs': blogs,
         'top3': top3,
-        'mycat': mycat,
+        'mycats': mycats,
 
+    }
+    return render(request, 'picApp/blog.html', context)
+
+
+def BlogShowCategory(request,cat_id):
+    cats = Category.objects.all()
+
+    posts = Blog.objects.filter(category=cat_id)
+
+    context = {
+        'cats':cats,
+        'posts':posts,
     }
     return render(request, 'picApp/blog.html', context)
 
@@ -53,15 +63,6 @@ def BlogRead(request, blog_id):
 
     context = {'blogs': blogs, 'read': read, 'readPage': readPage, 'top3': top3}
     return render(request, 'picApp/blogRead.html', context)
-
-
-def BlogCategory(request, cat_id):
-    cat = Category.objects.all()
-    category = Category.objects.get(pk=cat_id)
-    return render(request, 'picApp/blogRead.html', {})
-
-def get_queryset(self):
-    return Post.objects.filter(category_id=self.kwargs.get('pk'))
 
 
 def aboutView(request):

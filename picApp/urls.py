@@ -11,7 +11,7 @@ urlpatterns = [
     path('contact/', contactView, name='contact-view'),
     path('category/<int:cid>/', ShowCatView, name='show-cat-view'),
     path('blogs/read/<int:blog_id>/', BlogRead, name='blog-read-view'),
-    path('blogs/category/<int:cat_id>/', BlogCategory, name='blog-category-view'),
+    path('blogs/category/<int:cat_id>/', BlogShowCategory, name='blog-show-category-view'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
